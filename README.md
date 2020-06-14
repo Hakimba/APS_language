@@ -11,8 +11,8 @@ APS version 0 -> langage purement fonctionnel
 APS version 1 -> Ajout d'une couche impérative
 
 
-#Comment ça fonctionne
+# Comment ça fonctionne
 Dans chaque dossier lié a une version du langage, il y a le pdf associé qui y décrit toute la syntaxe, sémantique, et jugement de typage. Toute la base théorique qui a été utilisée pour l'implémentation et fournis dans le cadre du projet.
 
 
-#How to use it/Comment l'utiliser
+# How to use it/Comment l'utiliser
