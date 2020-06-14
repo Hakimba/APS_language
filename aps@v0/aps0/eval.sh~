@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for prog in programmes/*
+do
+	printf "$prog : "
+	res=$(./basic < $prog)
+	printf "flux de sortie : $res\n"
+done

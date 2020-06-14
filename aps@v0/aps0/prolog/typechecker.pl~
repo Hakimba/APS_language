@@ -1,0 +1,39 @@
+lastOf(X,[X]).
+lastOf(X,[_|T]):- lastOf(X,T).
+
+boolean(true).
+boolean(false).
+
+type(integer(_),_,[int]).
+type(boolean(_),_,[bool]).
+type(string(X),[(X,T)|_],T).
+type(string(X),[_|XTS],T) :- type(string(X),XTS,T).
+/*type(not,_,[bool,bool]).
+type(and,_,[bool,bool,bool]).
+type(or,_,[bool,bool,bool]).
+type(eq,_,[int,int,bool]).
+type(lt,_,[int,int,bool]).
+type(add,_,[int,int,int]).
+type(subs,_,[int,int,int]).
+type(mul,_,[int,int,int]).
+type(div,_,[int,int,int]).
+*/
+type(abs(Types,Expr),Res,T) :- type(Expr,concat(Types,_,Res),T).
+type(iF(Cond,Cons,Alter),Env,Y) :- type(Cond,Env,T1) , type(Cons,Env,T2), type(Alter,Env,T2), lastOf(X,T1), lastOf(Y,T2), X == bool. 
+
+type(echo,Env,Expr,[void]) :-  type(Expr,Env,T), lastOf(X,T), X == int.
+type(const(X,T,E),[(X,T)|Env]) :- type(E,Env,T).
+
+type(fun(X,T,Args,Expr),[(X,Sumtyp)|Env]) :- type(Expr,NewEnv,T), concat(Env,Args,NewEnv), concat(Sum,T,SumTyp), tronc(Sum,Args).
+
+mem(X,[X|_]).
+mem(X,[_|Xs]) :- mem(X,Xs).
+
+assoc(K,[(K,V)|_],V).
+assoc(K,[_|KVS],V) :- assoc(K,KVS,V).
+
+concat([],YS,YS).
+concat([X|XS],YS,[X|ZS]) :- concat(XS,YS,ZS).
+
+tronc([Type],[(_,Type)]).
+tronc([X|Type],[(_,X)|ITS]) :- tronc(Type,ITS).
